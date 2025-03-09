@@ -61,7 +61,7 @@ export default async function Home() {
 						<form
 							action={async (formData) => {
 								"use server";
-								await signIn("resend", {
+								await signIn("credentials", {
 									email: formData.get("email") as string,
 								});
 							}}
