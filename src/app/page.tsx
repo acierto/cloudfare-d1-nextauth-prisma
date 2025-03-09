@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
+export const runtime = 'edge';
+
 export default async function Home() {
 	const session = await auth();
 
