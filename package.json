@@ -1,24 +1,43 @@
 {
-  "name": "prisma-d1-example",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "deploy": "wrangler deploy",
-    "dev": "wrangler dev",
-    "info": "wrangler d1 info prisma-d1-example",
-    "start": "wrangler dev",
-    "test": "vitest"
-  },
-  "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "0.7.7",
-    "@cloudflare/workers-types": "4.20250303.0",
-    "prisma": "6.4.1",
-    "typescript": "5.8.2",
-    "vitest": "3.0.8",
-    "wrangler": "3.114.0"
-  },
-  "dependencies": {
-    "@prisma/adapter-d1": "6.4.1",
-    "@prisma/client": "6.4.1"
-  }
+	"name": "auto-garages-customer-client",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint",
+		"generate": "npx prisma generate",
+		"pages:build": "npx @cloudflare/next-on-pages",
+		"preview": "npm run pages:build && wrangler pages dev",
+		"deploy": "npm run pages:build && wrangler pages deploy",
+		"cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
+	},
+	"dependencies": {
+		"@emotion/styled": "^11.14.0",
+		"@mui/icons-material": "^6.4.3",
+		"@mui/material": "^6.4.3",
+		"@mui/material-nextjs": "^6.4.3",
+		"@mui/system": "^6.4.3",
+		"@mui/x-date-pickers": "^7.26.0",
+		"@prisma/adapter-d1": "^6.4.1",
+		"@prisma/client": "^6.4.1",
+		"next": "14.2.23",
+		"react": "^18",
+		"react-dom": "^18"
+	},
+	"devDependencies": {
+		"@cloudflare/next-on-pages": "^1.13.9",
+		"@cloudflare/workers-types": "^4.20250303.0",
+		"@opennextjs/cloudflare": "^0.5.9",
+		"@types/node": "^20",
+		"@types/react": "^18",
+		"@types/react-dom": "^18",
+		"eslint": "^8",
+		"eslint-config-next": "14.2.23",
+		"postcss": "^8",
+		"prettier": "^3.5.3",
+		"typescript": "^5",
+		"wrangler": "^3.107.3"
+	}
 }
