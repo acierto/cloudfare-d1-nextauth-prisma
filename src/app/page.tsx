@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-export const runtime = 'edge';
+export const runtime = "edge";
 
 export default async function Home() {
 	const session = await auth();
@@ -61,9 +61,13 @@ export default async function Home() {
 						<form
 							action={async (formData) => {
 								"use server";
-								await signIn("credentials", {
-									email: formData.get("email") as string,
-								});
+								try {
+									await signIn("credentials", {
+										email: formData.get("email") as string,
+									});
+								} catch (e) {
+									console.error("login failed", e);
+								}
 							}}
 							className="space-y-4"
 						>
@@ -79,7 +83,7 @@ export default async function Home() {
 								/>
 							</div>
 							<Button className="w-full" type="submit">
-								Sign in with Resend
+								Sign in
 							</Button>
 						</form>
 					)}
