@@ -10,12 +10,18 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { redirect } from "next/navigation";
 
 export const runtime = "edge";
 
-export default async function Home() {
-	// let error: string | null = null;
+export default async function Home({
+	searchParams,
+}: {
+	searchParams: { [key: string]: string | string[] | undefined };
+}) {
 	const session = await auth();
+
+	console.log(`searchParams=${JSON.stringify(searchParams)}`);
 
 	return (
 		<main className="flex items-center justify-center min-h-screen bg-background">
@@ -64,9 +70,10 @@ export default async function Home() {
 									await signIn("credentials", {
 										email: formData.get("email") as string,
 									});
+									redirect("/");
 									// eslint-disable-next-line @typescript-eslint/no-unused-vars
 								} catch (_err) {
-									// error = 'Incorrect credentials';
+									redirect("/?error=incorrect-login");
 								}
 							}}
 							className="space-y-4"
@@ -82,6 +89,11 @@ export default async function Home() {
 									required
 								/>
 							</div>
+							{searchParams["error"] === "incorrect-login" && (
+								<div className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400">
+									Incorrect credentials
+								</div>
+							)}
 							<Button className="w-full" type="submit">
 								Sign in
 							</Button>
