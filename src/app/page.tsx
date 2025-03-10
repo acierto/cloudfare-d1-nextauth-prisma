@@ -14,6 +14,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 export const runtime = "edge";
 
 export default async function Home() {
+	// let error: string | null = null;
 	const session = await auth();
 
 	return (
@@ -24,9 +25,7 @@ export default async function Home() {
 						{session ? "User Profile" : "Login"}
 					</CardTitle>
 					<CardDescription className="text-center">
-						{session
-							? "Manage your account"
-							: "Welcome to the auth-js-d1-example demo"}
+						{session ? "Manage your account" : "Welcome to the demo"}
 					</CardDescription>
 				</CardHeader>
 				<CardContent>
@@ -65,8 +64,9 @@ export default async function Home() {
 									await signIn("credentials", {
 										email: formData.get("email") as string,
 									});
-								} catch (e) {
-									console.error("login failed", e);
+									// eslint-disable-next-line @typescript-eslint/no-unused-vars
+								} catch (_err) {
+									// error = 'Incorrect credentials';
 								}
 							}}
 							className="space-y-4"
