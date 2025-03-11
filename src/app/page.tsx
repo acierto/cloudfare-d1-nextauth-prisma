@@ -66,14 +66,19 @@ export default async function Home({
 						<form
 							action={async (formData) => {
 								"use server";
+								let redirectPath: string = "/";
+
 								try {
 									await signIn("credentials", {
 										email: formData.get("email") as string,
+										redirect: false,
 									});
-									redirect("/");
-									// eslint-disable-next-line @typescript-eslint/no-unused-vars
+									console.log("before redirect");
 								} catch (_err) {
-									redirect("/?error=incorrect-login");
+									console.log("ERROR is =", _err);
+									redirectPath = "/?error=incorrect-login";
+								} finally {
+									redirect(redirectPath);
 								}
 							}}
 							className="space-y-4"
@@ -94,7 +99,7 @@ export default async function Home({
 									Incorrect credentials
 								</div>
 							)}
-							<Button className="w-full" type="submit">
+							<Button className="w-full cursor-pointer" type="submit">
 								Sign in
 							</Button>
 						</form>
@@ -106,7 +111,7 @@ export default async function Home({
 							action={async () => {
 								"use server";
 								await signOut();
-								Response.redirect("/");
+								Response.redirect("/#");
 							}}
 						>
 							<Button type="submit" variant="outline" className="w-full">
