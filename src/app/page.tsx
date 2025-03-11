@@ -107,7 +107,7 @@ export default async function Home({
 							action={async () => {
 								"use server";
 								await signOut();
-								Response.redirect("/#");
+								Response.redirect("/");
 							}}
 						>
 							<Button type="submit" variant="outline" className="w-full">
