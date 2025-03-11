@@ -54,11 +54,6 @@ export default async function Home({
 									</p>
 								</div>
 							</div>
-							<div>
-								<p className="text-sm font-medium">
-									User ID: {session.user?.id}
-								</p>
-							</div>
 						</div>
 					) : (
 						<form
@@ -71,6 +66,7 @@ export default async function Home({
 										email: formData.get("email") as string,
 										redirect: false,
 									});
+									// eslint-disable-next-line @typescript-eslint/no-unused-vars
 								} catch (_err) {
 									redirectPath = "/?error=incorrect-login";
 								} finally {
