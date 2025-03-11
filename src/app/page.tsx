@@ -17,7 +17,7 @@ export const runtime = "edge";
 export default async function Home({
 	searchParams,
 }: {
-	searchParams: { [key: string]: string | string[] | undefined };
+	searchParams: { [_: string]: string | string[] | undefined };
 }) {
 	const session = await auth();
 
