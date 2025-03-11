@@ -32,8 +32,6 @@ const authResult = async (): Promise<NextAuthResult> => {
 						password: string;
 					};
 
-					console.log(`email = ${email}`);
-
 					const c = getRequestContext();
 					const adapter = new PrismaD1(c.env.DB);
 					const prisma = new PrismaClient({ adapter });
@@ -43,8 +41,6 @@ const authResult = async (): Promise<NextAuthResult> => {
 							email,
 						},
 					});
-
-					console.log(`user = ${JSON.stringify(user)}`);
 
 					if (user) {
 						return {
