@@ -53,10 +53,35 @@ Generate Prisma Client with:
 
 `pnpm run generate`
 
+## Configure your NextAuth
+
+### Local setup
+
+Add in your .dev.vars file in the root of the project
+
+```.dotenv
+NEXTJS_ENV=development
+AUTH_TRUST_HOST=true
+AUTH_SECRET=YOUR_SECRET_HERE
+```
+
+### CloudFare
+
+
+```shell
+npx wrangler secret put AUTH_TRUST_HOST
+```
+Type `true`
+
+```shell
+npx wrangler secret put AUTH_SECRET
+```
+Type your secret
 
 First your can test it locally with:
 
 `pnpm run dev` or `pnpm run preview`
+
 
 And then on CloudFare Pages:
 
