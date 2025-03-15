@@ -6,6 +6,10 @@ Start with installing all dependencies with
 	pnpm i
 ```
 
+Create your CloudFare Page with:
+
+`wrangler pages project create cloudfare-d1-nextauth-prisma`
+
 Create your database in CloudFare:
 
 `npx wrangler d1 create cloudfare-d1-nextauth-prisma`
