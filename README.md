@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CloudFare Page Sign In Form For Next.js application using D1 and Prisma
 
-## Getting Started
+Start with installing all dependencies with
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```shell
+	pnpm i
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Create your database in CloudFare:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+`npx wrangler d1 create cloudfare-d1-nextauth-prisma`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Copy and paste the ID from the logs and update `wranger.json`:
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+```json
+{
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "cloudfare-d1-nextauth-prisma",
+			"database_id": "PASTE IT HERE"
+		}
+	]
+}
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Create table in your D1 local database with:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+`npx wrangler d1 execute prisma-demo-db --file=prisma/schema.sql --local`
 
-## Deploy on Vercel
+Create table in your D1 remote database with:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+`npx wrangler d1 execute prisma-demo-db --file=prisma/schema.sql --remote`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+And populate it with the demo user.
+
+Locally:
+
+```shell
+npx wrangler d1 execute prisma-demo-db --command "INSERT INTO  \"User\" (\"email\", \"name\") VALUES
+('jane@prisma.io', 'Jane Doe (Local)');" --local
+```
+
+Remote:
+
+```shell
+npx wrangler d1 execute prisma-demo-db --command "INSERT INTO  \"User\" (\"email\", \"name\") VALUES
+('jane@prisma.io', 'Jane Doe (Local)');" --remote
+```
+
+Generate Prisma Client with:
+
+`pnpm run generate`
+
+
+First your can test it locally with:
+
+`pnpm run dev` or `pnpm run preview`
+
+And then on CloudFare Pages:
+
+`pnpm run deploy`
+
+
+
