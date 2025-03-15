@@ -3,7 +3,7 @@
 Start with installing all dependencies with
 
 ```shell
-	pnpm i
+pnpm i
 ```
 
 Create your CloudFare Page with:
