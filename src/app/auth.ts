@@ -1,13 +1,19 @@
+import type { User } from "next-auth";
 import NextAuth from "next-auth";
-import { NextAuthResult } from "next-auth";
 import CredentialProvider from "next-auth/providers/credentials";
 import { PrismaD1 } from "@prisma/adapter-d1";
 import { PrismaClient } from "@prisma/client";
 import { getRequestContext } from "@cloudflare/next-on-pages";
-import type { User } from 'next-auth'
 
-const authResult = async (): Promise<NextAuthResult> => {
+const authResult = async () => {
 	return NextAuth({
+		session: {
+			strategy: "jwt",
+		},
+
+		pages: {
+			signIn: "/login",
+		},
 		providers: [
 			CredentialProvider({
 				// ** The name to display on the sign in form (e.g. 'Sign in with...')
@@ -53,7 +59,7 @@ const authResult = async (): Promise<NextAuthResult> => {
 					return null;
 				},
 			}),
-		]
+		],
 	});
 };
 
